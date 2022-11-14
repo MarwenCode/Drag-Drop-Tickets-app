@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import Modal from "../modal/Modal";
 import { AiOutlineEdit } from "react-icons/ai"
 import "./backlog.scss";
 
@@ -20,6 +22,12 @@ const BackLog = () => {
   const [addTicketMode, setAddTicketMode] = useState(false);
 
 
+  const location = useLocation();
+  console.log(location);
+  // const path = location.pathname.split("/")[2];
+  // console.log(path);
+
+
 
   const addTicket = (e) => {
     e.preventDefault();
@@ -37,6 +45,15 @@ const BackLog = () => {
   useEffect(() => {
     localStorage.setItem("description", JSON.stringify(inputField))
   }, [inputField])
+
+
+  // const getModal = () => {
+
+  // }
+
+
+
+
 
   return (
     <div className="backlog">
@@ -58,10 +75,15 @@ const BackLog = () => {
 
         <div className="center">
           {inputField.map((desc, index) => (
-            <div className="description" key={index}>
+            <Link to={`/modal/${desc.id}`}>
+            {/* <Link to="modal/:id"> */}
+             <div className="description" key={index}>
               <p className="text"> {desc.description}</p>
               <span className="edit"><AiOutlineEdit />  </span>
             </div>
+            
+            </Link>
+           
           ))}
         </div>
 
@@ -74,7 +96,8 @@ const BackLog = () => {
                }}>
                Add a card
              </button>
-             <button className="cancel">X</button>
+             <button className="cancel" 
+             onClick={() => setAddTicketMode((prev) => !prev)} >X</button>
            </div>
 
 
@@ -85,6 +108,10 @@ const BackLog = () => {
         }
      
       </div>
+
+   
+     
+    
     </div>
   );
 };
