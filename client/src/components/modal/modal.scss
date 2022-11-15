@@ -2,7 +2,7 @@
     width: 50%;
     border-radius: 50px;
     // margin-left: 200px;
-    height: 80vh;
+    height: 100vh;
     z-index: 1;
     position: absolute;
     top: 50%;
@@ -10,6 +10,10 @@
     transform: translate(-50%,-50%);
   
     background: linear-gradient(#eceff1, #9da6f1);
+
+    .backlog-section{
+        margin-right: 200px;
+    }
 
     .form {
         flex-direction: column;
@@ -19,21 +23,35 @@
        
 
         .title{
-            width: 350px;
+            width: 450px;
             margin-bottom: 25px;
 
         }
-        .description{
-            width: 350px;
+
+        .items-desc{
+
+            .description{
+                width: 450px;
+    
+
+
+        }
+        
+        }
+
+        .items-comment{
+            margin-top: 20px;
+
+            
+        .comment{
+            width: 450px;
+            height: 50px;
+
+        }
 
         }
 
     
-        .comment{
-            width: 350px;
-            height: 250px;
-
-        }
 
     }
 

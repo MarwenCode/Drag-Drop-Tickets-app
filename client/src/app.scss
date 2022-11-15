@@ -16,9 +16,29 @@ body {
   margin:0;
   padding: 0;
   background-color:white
+  
+
  
  
 
 
 
 }
+
+.newBoardBtn{
+  margin-left: 430px;
+  margin-top: 3px;
+  position: absolute;
+
+  padding: 5px 5px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: rgb(109, 168, 216);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  margin-bottom: 5px;
+}
+

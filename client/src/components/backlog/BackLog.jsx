@@ -1,33 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Modal from "../modal/Modal";
-import { AiOutlineEdit } from "react-icons/ai"
+import { AiOutlineEdit } from "react-icons/ai";
 import "./backlog.scss";
-
-
-
+import SingleTicket from "../singleTicket/SingleTicket";
 
 const getTicketLocal = () => {
-  let description =localStorage.getItem("description")
- if(description) {
-   return JSON.parse(localStorage.getItem("description"))
- } else {
-  return []
- }
-}
+  let description = localStorage.getItem("description");
+  if (description) {
+    return JSON.parse(localStorage.getItem("description"));
+  } else {
+    return [];
+  }
+};
 
 const BackLog = () => {
   const [description, setDescription] = useState("");
   const [inputField, setInputField] = useState(getTicketLocal());
   const [addTicketMode, setAddTicketMode] = useState(false);
 
-
-  const location = useLocation();
-  console.log(location);
-  // const path = location.pathname.split("/")[2];
-  // console.log(path);
-
-
+  // const location = useLocation();
+  // console.log(location);
+  // // const path = location.pathname.split("/")[2];
+  // // console.log(path);
 
   const addTicket = (e) => {
     e.preventDefault();
@@ -43,26 +38,49 @@ const BackLog = () => {
   console.log(inputField);
 
   useEffect(() => {
-    localStorage.setItem("description", JSON.stringify(inputField))
-  }, [inputField])
-
+    localStorage.setItem("description", JSON.stringify(inputField));
+  }, [inputField]);
 
   // const getModal = () => {
 
   // }
 
+  const dragItem = useRef();
+  const dragOverItem = useRef();
 
+  const dragStart = (e, position) => {
+    dragItem.current = position;
+    console.log(e.target.innerHTML);
+  };
 
+  const dragEnter = (e, position) => {
+    dragOverItem.current = position;
+    console.log(e.target.innerHTML);
+  };
 
+  const drop = () => {
+    const copyListItems = [...inputField];
+    const dragItemContent = copyListItems[dragItem.current];
+    copyListItems.splice(dragItem.current, 1);
+    copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setInputField(copyListItems);
+  };
 
   return (
     <div className="backlog">
       <div className="section">
         <h1 className="title">Backlog</h1>
         <div className="color"></div>
-        {!addTicketMode && 
-         <button className="addCardBtn"  onClick={() => setAddTicketMode((prev) => !prev)}> +  add a card</button> }
-       
+        {!addTicketMode && (
+          <button
+            className="addCardBtn"
+            onClick={() => setAddTicketMode((prev) => !prev)}>
+            + add a card
+          </button>
+        )}
+
         {addTicketMode && (
           <form>
             <textarea
@@ -75,43 +93,38 @@ const BackLog = () => {
 
         <div className="center">
           {inputField.map((desc, index) => (
-            <Link to={`/modal/${desc.id}`}>
-            {/* <Link to="modal/:id"> */}
-             <div className="description" key={index}>
-              <p className="text"> {desc.description}</p>
-              <span className="edit"><AiOutlineEdit />  </span>
-            </div>
+            <div className="description" key={index}  
+            onDragStart={(e) => dragStart(e, index)}
+            onDragEnter={(e) => dragEnter(e, index)}
+            onDragEnd={drop} 
             
-            </Link>
-           
+            
+            >
+              <div className="text">{desc.description}</div>
+              <span className="edit">
+                <AiOutlineEdit />
+              </span>
+            </div>
           ))}
         </div>
 
         {addTicketMode && (
-             <div className="down">
-             <button
-               className="adBtn"
-               onClick={(e) => {
-                 addTicket(e);
-               }}>
-               Add a card
-             </button>
-             <button className="cancel" 
-             onClick={() => setAddTicketMode((prev) => !prev)} >X</button>
-           </div>
-
-
-        )
-
-
-
-        }
-     
+          <div className="down">
+            <button
+              className="adBtn"
+              onClick={(e) => {
+                addTicket(e);
+              }}>
+              Add a card
+            </button>
+            <button
+              className="cancel"
+              onClick={() => setAddTicketMode((prev) => !prev)}>
+              X
+            </button>
+          </div>
+        )}
       </div>
-
-   
-     
-    
     </div>
   );
 };
