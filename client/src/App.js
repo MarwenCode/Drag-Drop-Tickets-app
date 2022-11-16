@@ -4,20 +4,28 @@ import "./app.scss";
 import InProgress from "./components/Inprogress/InProgress";
 import Home from "./components/home/Home";
 
+
+
+
+
 function App() {
   return (
 
-    <Router>
-    <div className="App">
+  //   <Router>
+  //   <div className="App">
      
-      <Routes>
-        <Route path="/" element={<Home />} />
+  //     <Routes>
+  //       <Route path="/" element={<Home />} />
     
-      </Routes>
+  //     </Routes>
   
-    </div>
+  //   </div>
   
-  </Router>
+  // </Router>
+     <div className="App">
+      <Home />
+
+     </div>
   
   );
 }

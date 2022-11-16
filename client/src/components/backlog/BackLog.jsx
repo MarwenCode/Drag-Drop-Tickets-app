@@ -14,6 +14,8 @@ const getTicketLocal = () => {
   }
 };
 
+
+
 const BackLog = () => {
   const [description, setDescription] = useState("");
   const [inputField, setInputField] = useState(getTicketLocal());
@@ -50,12 +52,18 @@ const BackLog = () => {
 
   const dragStart = (e, position) => {
     dragItem.current = position;
+
     console.log(e.target.innerHTML);
+
+   
   };
 
   const dragEnter = (e, position) => {
     dragOverItem.current = position;
+  
     console.log(e.target.innerHTML);
+
+  
   };
 
   const drop = () => {
@@ -68,7 +76,19 @@ const BackLog = () => {
     setInputField(copyListItems);
   };
 
+
+
+
+  // const getModal = () => {
+
+  // }
+
+
+
   return (
+    <>
+    
+
     <div className="backlog">
       <div className="section">
         <h1 className="title">Backlog</h1>
@@ -100,7 +120,7 @@ const BackLog = () => {
             
             
             >
-              <div className="text">{desc.description}</div>
+              <p className="text">{desc.description}</p>
               <span className="edit">
                 <AiOutlineEdit />
               </span>
@@ -126,6 +146,21 @@ const BackLog = () => {
         )}
       </div>
     </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </>
+    
   );
 };
 
